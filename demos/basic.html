@@ -19,12 +19,12 @@
     <button onclick="generator.trigger('sourceNotFind')">img等资源加载失败</button>
     <button onclick="generator.trigger('uncatchPromise')">uncatch Promise</button>
 
+    
+
     <script>
-        // var Logger = JsLogger.Logger
-        // var ErrorGenerator = JsLogger.ErrorGenerator
-        // // 日志上报
-        // var logger = Logger.getInstance('js-logger')
-        // var generator = new ErrorGenerator()
+        // 日志上报
+        var logger = JsLogger.getInstance('js-logger')
+        var generator = new ErrorGenerator()
     </script>
 
 </body>

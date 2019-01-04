@@ -2,8 +2,8 @@
   "name": "js-logger",
   "version": "1.0.0",
   "scripts": {
-    "start": "webpack-dev-server --config webpack.config.js --hot",
-    "build": "webpack --config webpack.config.js",
+    "start": "webpack-dev-server --hot",
+    "build": "webpack --config webpack.config.js && webpack --config webpack.errors.config.js",
     "test": "webpack --config webpack.config.mocha.js"
   },
   "private": true,

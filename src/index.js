@@ -32,12 +32,12 @@ function formateDateAndTimeToString(date) {
 
 const insMap = new Map()
 
-export default class Logger {
+export default class JsLogger {
 
     static getInstance(origin, config) {
         if (!insMap.has(origin)) {
             try {
-                insMap.set(origin, new Logger(origin, config))
+                insMap.set(origin, new JsLogger(origin, config))
             } catch (error) {
                 console.warn('初始化前端错误监控发生错误', error)
             }
@@ -289,10 +289,10 @@ export default class Logger {
 
 
     /*
-        vue version 2.5.16 需要通过 Logger 实例手动调用
+        vue version 2.5.16 需要通过 JsLogger 实例手动调用
         @example:
             import Vue from 'vue';
-            const logger = Logger.getInstance('data-insight')
+            const logger = JsLogger.getInstance('data-insight')
             logger.handleVueError(Vue)
     */
     handleVueError = function (Vue) {
@@ -347,5 +347,3 @@ export default class Logger {
         });
     }
 }
-
-window.JsLogger = Logger

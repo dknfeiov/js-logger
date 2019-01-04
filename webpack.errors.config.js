@@ -1,12 +1,12 @@
 module.exports = {
     entry: {
-        "js-logger": "./src/index.js"
+        "js-error-generator": "./src/errors.js"
     },
     output: {
         path: __dirname + '/build/',
         filename: '[name].js',
         libraryExport: "default",
-        library: 'JsLogger',
+        library: 'ErrorGenerator',
         libraryTarget: 'umd'
     },
     mode: "production",

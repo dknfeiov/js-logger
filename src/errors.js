@@ -1,6 +1,6 @@
 
 
-export class ErrorGenerator {
+export default class ErrorGenerator {
 
     // Error trigger
     trigger(eventType) {
