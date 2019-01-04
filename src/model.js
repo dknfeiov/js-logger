@@ -1,5 +1,5 @@
 /* 监控数据 */
-export default class LogData {
+export default class LogModel {
     /*  data:
             time: 时间
             origin: 错误来源
