@@ -1,5 +1,4 @@
 // import { formateDateAndTimeToString } from './utils'
-
 // 获取年月日
 function formatDateToString(date) {
     if (!date) {
@@ -30,14 +29,15 @@ function formateDateAndTimeToString(date) {
 }
 
 
+
 const insMap = new Map()
 
-export default class ErrorLogger {
+export default class Logger {
 
     static getInstance(origin, config) {
         if (!insMap.has(origin)) {
             try {
-                insMap.set(origin, new ErrorLogger(origin, config))
+                insMap.set(origin, new Logger(origin, config))
             } catch (error) {
                 console.warn('初始化前端错误监控发生错误', error)
             }
@@ -46,13 +46,14 @@ export default class ErrorLogger {
     }
 
     defaultConfig = {
+        // error category
         jsError: true,
         resourceError: true,
         ajaxError: true,
-        consoleError: false, // console.error默认不处理
+        // others
         vueError: true,
         workerError: true,
-        // autoReport: true,
+        consoleError: false,
         category: ['js', 'resource', 'ajax'],
         handle: function () {
             console.warn('错误处理 handle 方法未定义')
@@ -288,10 +289,10 @@ export default class ErrorLogger {
 
 
     /*
-        vue version 2.5.16 需要通过 ErrorLogger 实例手动调用
+        vue version 2.5.16 需要通过 Logger 实例手动调用
         @example:
             import Vue from 'vue';
-            const logger = ErrorLogger.getInstance('data-insight')
+            const logger = Logger.getInstance('data-insight')
             logger.handleVueError(Vue)
     */
     handleVueError = function (Vue) {
@@ -346,3 +347,5 @@ export default class ErrorLogger {
         });
     }
 }
+
+window.JsLogger = Logger

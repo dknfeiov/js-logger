@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <!-- crossorigin="anonymous" -->
+    <script src="../build/js-logger.js"></script>
+</head>
+
+<body>
+
+    <button onclick="generator.trigger('jsExecute')">js执行错误</button>
+    <button onclick="generator.trigger('xhr')">ajax[xmlHttpRequest]请求失败</button>
+    <button onclick="generator.trigger('fetch')">fetch 请求失败</button>
+    <button onclick="generator.trigger('sourceNotFind')">img等资源加载失败</button>
+    <button onclick="generator.trigger('uncatchPromise')">uncatch Promise</button>
+
+    <script>
+        var Logger = JsLogger.Logger
+        var ErrorGenerator = JsLogger.ErrorGenerator
+        // 日志上报
+        var logger = Logger.getInstance('js-logger')
+        var generator = new ErrorGenerator()
+    </script>
+
+</body>
+
+</html>
