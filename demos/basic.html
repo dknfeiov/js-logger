@@ -3,11 +3,20 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
-    <!-- crossorigin="anonymous" -->
+    <title>Basic</title>
+
+    <!-- logger -->
     <script src="../build/js-logger.js"></script>
+    <!-- error trigger -->
     <script src="../build/js-error-generator.js"></script>
 
+
+    <!-- import Vue.js -->
+    <script src="//vuejs.org/js/vue.min.js"></script>
+    <!-- import stylesheet -->
+    <link rel="stylesheet" href="//unpkg.com/iview/dist/styles/iview.css">
+    <!-- import iView -->
+    <script src="//unpkg.com/iview/dist/iview.min.js"></script>
 
 </head>
 
@@ -19,7 +28,7 @@
     <button onclick="generator.trigger('sourceNotFind')">img等资源加载失败</button>
     <button onclick="generator.trigger('uncatchPromise')">uncatch Promise</button>
 
-    
+
 
     <script>
         // 日志上报
