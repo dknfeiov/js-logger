@@ -62,32 +62,29 @@ export default class JsLogger {
 
     constructor(origin, config) {
         this.origin = origin
-        this.recordError = this.recordError.bind(this)
         this.config = Object.assign({
-            recordError: this.recordError
+            recordError: this.recordError.bind(this)
         }, this.defaultConfig, config)
         this.init(this.config)
     }
 
+    setHandle(func) {
+        this.config.handle = func
+    }
+
     // 记录错误
     recordError({ title, msg, level, category }) {
-        try {
-            console.error(
-                this.origin,
-                title, msg, level, category
-            )
-        } catch (error) {
-            console.log('上报错误日志发生异常', error)
+        const time = formateDateAndTimeToString()
+        const logData = {
+            origin: this.origin, title, msg, level, category, time,
+            ...this.deviceInfo
         }
-        // const time = formateDateAndTimeToString()
-        // const logData = new LogData(time, this.origin, title, msg, level, category)
-        // console.log('日志上报', title, msg, level, category)
-        // // 尽量不影响页面主线程
-        // if (this.window.requestIdleCallback) {
-        //     this.window.requestIdleCallback(() => this.report(logData))
-        // } else {
-        //     setTimeout(() => this.report(logData))
-        // }
+        // 尽量不影响页面主线程
+        if (window.requestIdleCallback) {
+            window.requestIdleCallback(() => this.config.handle(logData))
+        } else {
+            setTimeout(() => this.config.handle(logData))
+        }
     }
 
     init(config) {
@@ -118,9 +115,9 @@ export default class JsLogger {
         if (!this.deviceInfo) {
             this.deviceInfo = {
                 // 浏览器信息
-                USERAGENT: navigator.userAgent,
+                userAgent: navigator.userAgent,
                 // 系统平台
-                PLATFORM: navigator.platform
+                platform: navigator.platform
             }
         }
     }

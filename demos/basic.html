@@ -18,22 +18,72 @@
     <!-- import iView -->
     <script src="//unpkg.com/iview/dist/iview.min.js"></script>
 
+    <style>
+        button {
+            width: 200px;
+            height: 40px;
+            padding: 5px;
+            margin: 5px; 
+        }
+    </style>
+
 </head>
 
-<body>
+<body >
 
-    <button onclick="generator.trigger('jsExecute')">js执行错误</button>
-    <button onclick="generator.trigger('xhr')">ajax[xmlHttpRequest]请求失败</button>
-    <button onclick="generator.trigger('fetch')">fetch 请求失败</button>
-    <button onclick="generator.trigger('sourceNotFind')">img等资源加载失败</button>
-    <button onclick="generator.trigger('uncatchPromise')">uncatch Promise</button>
+    <button onclick="trigger('jsExecute')">js执行错误</button>
+    <button onclick="trigger('xhr')">ajax[xmlHttpRequest]请求失败</button>
+    <button onclick="trigger('fetch')">fetch 请求失败</button>
+    <button onclick="trigger('sourceNotFind')">img等资源加载失败</button>
+    <button onclick="trigger('uncatchPromise')">uncatch Promise</button>
 
-
+    <div id="app">
+        <i-table :columns="columns" :data="logs">
+            <template slot-scope="{ row }" slot="msg">
+                <pre>{{ row.msg }}</pre>
+            </template>
+        </i-table>
+    </div>
 
     <script>
-        // 日志上报
+
+        // instance Logger 
         var logger = JsLogger.getInstance('js-logger')
         var generator = new ErrorGenerator()
+
+        function trigger(errorType) {
+            generator.trigger(errorType)
+        }
+
+        // 错误日志收集、展示
+        new Vue({
+            el: '#app',
+            data: {
+                errorGenerator: null,
+                columns:[
+                    { title: 'origin', key: 'origin', width: 120 },
+                    { title: 'category', key: 'category', width: 100 },
+                    { title: 'title', key: 'title', width: 180 },
+                    { title: 'msg', key: 'msg', minWidth: 600, slot: 'msg' },
+                    { title: 'userAgent', key: 'userAgent', width: 300 },
+                    { title: 'platform', key: 'platform', width: 120 },
+                    { title: 'time', key: 'time', width: 150 },
+                ],
+                logs: []
+            },
+            methods: {
+                trigger(errorType) {
+                    trigger(errorType)
+                },
+                log: function (info) {
+                    this.logs.push(info)
+                }
+            },
+            created() {
+                this.log = this.log.bind(this)
+                logger.setHandle(this.log)
+            }
+        })
     </script>
 
 </body>

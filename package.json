@@ -1,6 +1,6 @@
 {
   "name": "js-logger",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "scripts": {
     "start": "webpack-dev-server --hot",
     "build": "webpack --config webpack.config.js && webpack --config webpack.errors.config.js",
